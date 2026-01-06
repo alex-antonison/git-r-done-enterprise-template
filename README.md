@@ -34,4 +34,4 @@ Once dbt has been run at least once, you can then start up the streamlit app via
 
 ## Looking at data
 
-Use a database client such as DBeaver to connect to the DuckDB database file located at [database/dev/](database/dev/). The database file is named `git_r_done_enterprises.duckdb`.
+Use a database client such as DBeaver to connect to the DuckDB database file located at `database/dev/git_r_done_enterprises.duckdb`.
