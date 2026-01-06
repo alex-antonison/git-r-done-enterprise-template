@@ -22,11 +22,6 @@ This project deploys a streamlit app at [to be added].
 2. Activate environment `source .venv/bin/activate`
 3. Install packages with `pip install -r requirements.txt`
 
-### Setup pre-commit
-
-1. Install pre-commit `pip install pre-commit`
-2. Setup pre-commit `pre-commit install`
-
 ## Running locally
 
 With the `.venv` environment activated, you can then run the dbt project. This will be required to be done at least once before you can run the streamlit app locally.
@@ -36,3 +31,7 @@ With the `.venv` environment activated, you can then run the dbt project. This w
 Once dbt has been run at least once, you can then start up the streamlit app via:
 
     streamlit run streamlit_app.py
+
+## Looking at data
+
+Use a database client such as DBeaver to connect to the DuckDB database file located at [database/dev/](database/dev/). The database file is named `git_r_done_enterprises.duckdb`.
