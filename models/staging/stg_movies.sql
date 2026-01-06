@@ -1,8 +1,6 @@
-{{ config(
-    materialized = 'view'
-) }}
+WITH
 
-WITH source_data AS (
+source_data AS (
 
     SELECT *
     FROM
