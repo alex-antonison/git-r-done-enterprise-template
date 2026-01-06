@@ -31,7 +31,7 @@ jobs:
         run: pip install -r requirements.txt
 
       - name: Delete existing prod db
-        run: rm dbt/database/prod/git_r_done_enterprises.duckdb
+        run: rm database/prod/git_r_done_enterprises.duckdb
 
       - name: Run dbt
         run: dbt run --target prod
