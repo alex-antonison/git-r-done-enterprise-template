@@ -4,34 +4,33 @@ This is an example project to practice learning git concepts.
 
 This project deploys a streamlit app at [to be added].
 
-## Setup
+## Pre-run Setup
 
-1. Install Python (preferably 3.12 or 3.13 - encountered issues in MacOS trying to get project to work with 3.14)
+1. Install Python
 2. Setup `.streamlit/secrets.toml`
    1. Copy the [.streamlit/secrets-example.toml](.streamlit/secrets-example.toml) and save it as `secrets.toml`
 
-### Windows
+### Python and dbt Setup
 
-1. Setup virtual environment with `python -m venv .venv`
-2. Activate the environment `.venv\Scripts\activate`
-3. Install packages with `pip install -r requirements.txt`
-
-### MacOS/Linux
-
-1. Setup virtual environment with `python -m venv .venv`
-2. Activate environment `source .venv/bin/activate`
-3. Install packages with `pip install -r requirements.txt`
-
-## Running locally
-
-With the `.venv` environment activated, you can then run the dbt project. This will be required to be done at least once before you can run the streamlit app locally.
-
-     dbt run
-
-Once dbt has been run at least once, you can then start up the streamlit app via:
-
-    streamlit run streamlit_app.py
+1. Run `.\build.ps1` from the project root.
+2. The script will create `.venv`, install dependencies, and run `dbt deps`.
+3. Python 3.12, 3.13, and 3.14 are supported by the script. On 3.14, it applies a dependency compatibility override automatically.
+4. If no compatible Python version is installed, the script will attempt to install Python 3.13 via `winget`.
+5. Activate the environment using `.\.venv\Scripts\activate`
+6. Run `dbt --version` to make sure everything is working.
 
 ## Looking at data
 
 Use a database client such as DBeaver to connect to the DuckDB database file located at `database/dev/git_r_done_enterprises.duckdb`.
+
+## Exercise 
+
+1. Come up with an idea for doing some analytics with movie data - you can see the data schema here: [models\staging\stg_movies.yml](models/staging/stg_movies.yml).
+2. Write a GitHub issue describing the idea and what you would like to do with it.
+3. Create a descriptive branch name (e.g., `analytics-movie-revenue`).
+4. Add a dbt model under [models/marts/](models/marts/) similar to [models\marts\sample_model.sql](models\marts\sample_model.sql) that implements what you described in your GitHub Issue.
+5. Run `dbt run` and make sure everything is working.
+6. Commit your changes and push them to GitHub.
+7. Open a pull request against the main branch of this repository.
+8. Once done, review your PR with someone else and get feedback.
+

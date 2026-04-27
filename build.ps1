@@ -104,7 +104,7 @@ if ($venvVersion -eq "3.14") {
     & $venvPython -m pip install mashumaro==3.20 --no-deps
 }
 
-Write-Host "[3/3] Running dbt deps..."
-& $dbtExe deps
+Write-Host "[3/3] Validating dbt installation..."
+& $dbtExe --version
 
 Write-Host "Build completed successfully."
