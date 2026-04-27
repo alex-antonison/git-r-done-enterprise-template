@@ -31,13 +31,13 @@ jobs:
         run: pip install -r requirements.txt
 
       - name: Delete existing prod db
-        run: rm database/prod/git_r_done_enterprises.duckdb
+        run: rm -f database/prod/git_r_done_enterprises.duckdb
 
       - name: Run dbt
         run: dbt run --target prod
 
       - name: pull any commits that were done mid-action
-        run: git pull
+        run: git pull --rebase
 
       - name: Check if there are any changes
         id: verify_diff
