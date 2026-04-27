@@ -31,7 +31,7 @@ def get_staging_movie_data():
     try:
         return conn.execute("""
             SELECT *
-            FROM sample_model
+            FROM sample_model_revenue
         """).fetchdf()
     finally:
         conn.close()

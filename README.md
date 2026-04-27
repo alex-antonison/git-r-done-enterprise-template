@@ -34,3 +34,8 @@ Use a database client such as DBeaver to connect to the DuckDB database file loc
 7. Open a pull request against the main branch of this repository.
 8. Once done, review your PR with someone else and get feedback.
 
+## Extra
+
+If you are interested, you can tinker with the `streamlit_app.py` script and add some visualizations or other features to it.
+
+To run it, do `streamlit run streamlit_app.py`.
