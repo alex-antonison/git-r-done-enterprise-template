@@ -98,12 +98,6 @@ Write-Host "[2/3] Installing packages..."
 & $venvPython -m pip install --upgrade pip
 & $venvPython -m pip install -r $requirementsFile
 
-$venvVersion = & $venvPython -c "import sys; print(f'{sys.version_info[0]}.{sys.version_info[1]}')"
-if ($venvVersion -eq "3.14") {
-    Write-Host "Applying Python 3.14 compatibility override for dbt dependency chain (mashumaro)..."
-    & $venvPython -m pip install mashumaro==3.20 --no-deps
-}
-
 Write-Host "[3/3] Validating dbt installation..."
 & $dbtExe --version
 

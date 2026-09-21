@@ -12,11 +12,11 @@ This project deploys a streamlit app at [to be added].
 
 ### Python and dbt Setup
 
-1. Run `.\build.ps1` from the project root.
-2. The script will create `.venv`, install dependencies, and run `dbt deps`.
-3. Python 3.12, 3.13, and 3.14 are supported by the script. On 3.14, it applies a dependency compatibility override automatically.
-4. If no compatible Python version is installed, the script will attempt to install Python 3.13 via `winget`.
-5. Activate the environment using `.\.venv\Scripts\activate`
+1. Run `.\build.ps1` from the project root (Windows), or `just build` (macOS/Linux).
+2. The script will create `.venv` and install dependencies, including dbt v2.
+3. Python 3.12, 3.13, and 3.14 are supported by the script.
+4. On Windows, if no compatible Python version is installed, the script will attempt to install Python 3.13 via `winget`.
+5. Activate the environment using `.\.venv\Scripts\activate` (Windows) or `source .venv/bin/activate` (macOS/Linux)
 6. Run `dbt --version` to make sure everything is working.
 
 ## Looking at data

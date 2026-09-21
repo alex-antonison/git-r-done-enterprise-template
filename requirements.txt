@@ -1,4 +1,4 @@
-dbt-duckdb
+dbt
 duckdb
 pandas
 plotly
