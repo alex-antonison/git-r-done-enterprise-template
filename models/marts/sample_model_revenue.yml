@@ -1,0 +1,18 @@
+version: 2
+
+models:
+  - name: sample_model_revenue
+    description: Worldwide box office revenue aggregated by release year, MPAA rating, and genre.
+    columns:
+      - name: release_year
+        description: Calendar year the movies were released.
+        data_type: integer
+      - name: mpaa_rating
+        description: MPAA age/content rating for the movies.
+        data_type: varchar
+      - name: major_genres
+        description: Primary genre classification(s) for the movies.
+        data_type: varchar
+      - name: total_worldwide_gross
+        description: Sum of worldwide box office gross in USD for the group.
+        data_type: bigint

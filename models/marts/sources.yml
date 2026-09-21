@@ -1,0 +1,11 @@
+version: 2
+
+sources:
+  - name: vega_datasets
+    description: Public movie dataset published by the Vega visualization project.
+    tables:
+      - name: movies
+        description: Raw movie records including box office performance, ratings, and metadata.
+        config:
+          external_location: "read_json_auto('https://raw.githubusercontent.com/vega/vega-datasets/next/data/movies.json')"
+          formatter: oldstyle
