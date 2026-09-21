@@ -7,21 +7,15 @@ This project builds movie analytics data with dbt, then visualizes it with [dbt 
 ## Python and dbt Setup
 
 1. Run `.\build.ps1` from the project root (Windows), or `./build.sh` (macOS/Linux).
-2. The script installs [uv](https://docs.astral.sh/uv/getting-started/installation/) if it isn't already on your machine, uses it to install Python 3.13 and create `.venv`, then installs dependencies (including dbt v2) into it.
+2. The script installs [uv](https://docs.astral.sh/uv/getting-started/installation/) if it isn't already on your machine, uses it to install Python 3.13 and create `.venv`, then installs dependencies (including dbt v2) into it. It also installs [dbt Charts](https://docs.getdbt.com/guides/dbt-charts) (`dct`) via `uv tool install`, in its own isolated tool environment separate from `.venv`.
 3. Activate the environment using `.\.venv\Scripts\activate` (Windows) or `source .venv/bin/activate` (macOS/Linux).
 4. Run `dbt --version` to make sure everything is working.
 5. Run `dbt run` to build the models.
-
-## dbt Charts Setup
-
-dbt Charts runs in its own isolated tool environment, separate from the `.venv` above. `uv` is already available after the setup step above.
-
-1. Install dbt Charts with the DuckDB adapter it needs to read `profiles.yml`: `uv tool install dbt-charts --with dbt-duckdb`.
-2. Run `dct serve` from the project root to preview the dashboard in your browser.
+6. Run `dct serve` from the project root to preview the dashboard in your browser.
 
 ## Looking at data
 
-Use a database client such as DBeaver to connect to the DuckDB database file located at `database/dev/git_r_done_enterprises.duckdb`, or view it through the dbt Charts dashboard (`dct serve`).
+Use a database client such as DBeaver to connect to the DuckDB database file located at `database/git_r_done_enterprises.duckdb`, or view it through the dbt Charts dashboard (`dct serve`).
 
 ## Exercise
 

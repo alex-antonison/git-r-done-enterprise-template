@@ -29,5 +29,10 @@ jobs:
       - name: Run dbt lint
         run: dbt lint
 
+      - name: Check dbt format
+        run: |
+          dbt format
+          git diff --exit-code
+
       - name: Run dbt check
         run: dbt check

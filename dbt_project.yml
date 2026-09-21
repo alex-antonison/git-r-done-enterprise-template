@@ -16,6 +16,9 @@ clean-targets:
   - "target"
   - "dbt_packages"
 
+info_schema:
+  version: 1
+
 models:
   git_r_done_enterprises:
     marts:

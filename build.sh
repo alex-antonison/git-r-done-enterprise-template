@@ -15,10 +15,11 @@ if [ ! -f "$requirements_file" ]; then
     exit 1
 fi
 
+export PATH="$HOME/.local/bin:$PATH"
+
 if ! command -v uv >/dev/null 2>&1; then
     echo "uv not found. Installing uv..."
     curl -LsSf https://astral.sh/uv/install.sh | sh
-    export PATH="$HOME/.local/bin:$PATH"
 fi
 
 if ! command -v uv >/dev/null 2>&1; then
@@ -31,25 +32,17 @@ echo "Using uv: $(uv --version)"
 echo "Ensuring Python $python_version is available..."
 uv python install "$python_version"
 
-echo "[1/3] Creating virtual environment..."
-needs_new_venv=1
-if [ -x "$venv_python" ]; then
-    venv_version=$("$venv_python" -c 'import sys; print(f"{sys.version_info[0]}.{sys.version_info[1]}")')
-    if [ "$venv_version" = "$python_version" ]; then
-        needs_new_venv=0
-    else
-        echo "Existing .venv uses Python $venv_version, recreating with Python $python_version..."
-    fi
-fi
+echo "[1/4] Creating virtual environment..."
+uv venv --clear --python "$python_version" "$venv_path"
 
-if [ "$needs_new_venv" -eq 1 ]; then
-    uv venv --clear --python "$python_version" "$venv_path"
-fi
-
-echo "[2/3] Installing packages..."
+echo "[2/4] Installing packages..."
 uv pip install --python "$venv_python" -r "$requirements_file"
 
-echo "[3/3] Validating dbt installation..."
+echo "[3/4] Validating dbt installation..."
 "$venv_dbt" --version
+
+echo "[4/4] Installing dbt Charts..."
+uv tool install dbt-charts --with dbt-duckdb
+dct --version
 
 echo "Setup completed successfully."

@@ -1,5 +1,7 @@
 title: Git-R-Done Enterprises Movie Analysis
 source: analytics
+aliases:
+  - /
 notes: >
   Worldwide box office revenue aggregated by release year, MPAA rating,
   and genre — built from models/marts/sample_model_revenue.
