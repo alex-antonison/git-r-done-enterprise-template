@@ -14,18 +14,28 @@ if [ ! -f "$requirements_file" ]; then
     exit 1
 fi
 
-python_cmd=""
-for candidate in python3.14 python3.13 python3.12 python3; do
-    if command -v "$candidate" >/dev/null 2>&1; then
-        version=$("$candidate" -c 'import sys; print(f"{sys.version_info[0]}.{sys.version_info[1]}")' 2>/dev/null || true)
-        case "$version" in
-            3.14|3.13|3.12)
-                python_cmd="$candidate"
-                break
-                ;;
-        esac
-    fi
-done
+find_compatible_python() {
+    for candidate in python3.14 python3.13 python3.12 python3; do
+        if command -v "$candidate" >/dev/null 2>&1; then
+            version=$("$candidate" -c 'import sys; print(f"{sys.version_info[0]}.{sys.version_info[1]}")' 2>/dev/null || true)
+            case "$version" in
+                3.14|3.13|3.12)
+                    echo "$candidate"
+                    return 0
+                    ;;
+            esac
+        fi
+    done
+    return 1
+}
+
+python_cmd="$(find_compatible_python || true)"
+
+if [ -z "$python_cmd" ] && command -v brew >/dev/null 2>&1; then
+    echo "No compatible Python found. Attempting to install Python 3.13 with Homebrew..."
+    brew install python@3.13
+    python_cmd="$(find_compatible_python || true)"
+fi
 
 if [ -z "$python_cmd" ]; then
     echo "Could not find a compatible Python interpreter. Install Python 3.12, 3.13, or 3.14 (e.g. 'brew install python@3.13'), then re-run ./build.sh" >&2
