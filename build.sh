@@ -32,13 +32,13 @@ find_compatible_python() {
 python_cmd="$(find_compatible_python || true)"
 
 if [ -z "$python_cmd" ] && command -v brew >/dev/null 2>&1; then
-    echo "No compatible Python found. Attempting to install Python 3.13 with Homebrew..."
-    brew install python@3.13
+    echo "No compatible Python found. Attempting to install the latest supported Python (3.14) with Homebrew..."
+    brew install python@3.14
     python_cmd="$(find_compatible_python || true)"
 fi
 
 if [ -z "$python_cmd" ]; then
-    echo "Could not find a compatible Python interpreter. Install Python 3.12, 3.13, or 3.14 (e.g. 'brew install python@3.13'), then re-run ./build.sh" >&2
+    echo "Could not find a compatible Python interpreter. Install Python 3.12, 3.13, or 3.14 (e.g. 'brew install python@3.14'), then re-run ./build.sh" >&2
     exit 1
 fi
 
