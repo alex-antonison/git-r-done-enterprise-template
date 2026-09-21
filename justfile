@@ -8,7 +8,7 @@ default:
     @just --list
 
 # Create the venv, install dependencies, and validate dbt (mirrors build.ps1)
-build:
+setup:
     #!/usr/bin/env bash
     set -euo pipefail
 
@@ -31,7 +31,7 @@ build:
     done
 
     if [ -z "$python_cmd" ]; then
-        echo "Could not find a compatible Python interpreter. Install Python 3.12, 3.13, or 3.14 (e.g. 'brew install python@3.13'), then re-run 'just build'." >&2
+        echo "Could not find a compatible Python interpreter. Install Python 3.12, 3.13, or 3.14 (e.g. 'brew install python@3.13'), then re-run 'just setup'." >&2
         exit 1
     fi
 
@@ -63,4 +63,4 @@ build:
     echo "[3/3] Validating dbt installation..."
     "{{venv_dbt}}" --version
 
-    echo "Build completed successfully."
+    echo "Setup completed successfully."
