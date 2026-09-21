@@ -25,7 +25,7 @@ Use a database client such as DBeaver to connect to the DuckDB database file loc
 
 ## Exercise 
 
-1. Come up with an idea for doing some analytics with movie data - you can see the raw source schema here: [models\marts\sources.yml](models/marts/sources.yml).
+1. Come up with an idea for doing some analytics with movie data - you can see the raw source schema here: [models\sources.yml](models/sources.yml).
 2. Write a GitHub issue describing the idea and what you would like to do with it.
 3. Create a descriptive branch name (e.g., `analytics-movie-revenue`).
 4. Add a dbt model under [models/marts/](models/marts/) similar to [models\marts\sample_model_revenue.sql](models\marts\sample_model_revenue.sql) that implements what you described in your GitHub Issue.
