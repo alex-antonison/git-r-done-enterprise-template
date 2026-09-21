@@ -6,8 +6,7 @@ This project deploys a streamlit app at [to be added].
 
 ## Pre-run Setup
 
-1. Install Python
-2. Setup `.streamlit/secrets.toml`
+1. Setup `.streamlit/secrets.toml`
    1. Copy the [.streamlit/secrets-example.toml](.streamlit/secrets-example.toml) and save it as `secrets.toml`
 
 ### Python and dbt Setup
@@ -16,14 +15,15 @@ This project deploys a streamlit app at [to be added].
 2. The script will create `.venv` and install dependencies, including dbt v2.
 3. Python 3.12, 3.13, and 3.14 are supported by the script.
 4. On Windows, if no compatible Python version is installed, the script will attempt to install Python 3.13 via `winget`.
-5. Activate the environment using `.\.venv\Scripts\activate` (Windows) or `source .venv/bin/activate` (macOS/Linux)
-6. Run `dbt --version` to make sure everything is working.
+5. On macOS, if no compatible Python version is installed, the script will attempt to install Python 3.14 via `brew` — this requires [Homebrew](https://brew.sh) to already be installed.
+6. Activate the environment using `.\.venv\Scripts\activate` (Windows) or `source .venv/bin/activate` (macOS/Linux)
+7. Run `dbt --version` to make sure everything is working.
 
 ## Looking at data
 
 Use a database client such as DBeaver to connect to the DuckDB database file located at `database/dev/git_r_done_enterprises.duckdb`.
 
-## Exercise 
+## Exercise
 
 1. Come up with an idea for doing some analytics with movie data - you can see the raw source schema here: [models\sources.yml](models/sources.yml).
 2. Write a GitHub issue describing the idea and what you would like to do with it.
