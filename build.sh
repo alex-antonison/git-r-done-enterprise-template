@@ -8,64 +8,46 @@ venv_path="$repo_root/.venv"
 venv_python="$venv_path/bin/python"
 venv_dbt="$venv_path/bin/dbt"
 requirements_file="$repo_root/requirements.txt"
+python_version="3.13"
 
 if [ ! -f "$requirements_file" ]; then
     echo "requirements.txt was not found at $requirements_file" >&2
     exit 1
 fi
 
-find_compatible_python() {
-    for candidate in python3.14 python3.13 python3.12 python3; do
-        if command -v "$candidate" >/dev/null 2>&1; then
-            version=$("$candidate" -c 'import sys; print(f"{sys.version_info[0]}.{sys.version_info[1]}")' 2>/dev/null || true)
-            case "$version" in
-                3.14|3.13|3.12)
-                    echo "$candidate"
-                    return 0
-                    ;;
-            esac
-        fi
-    done
-    return 1
-}
-
-python_cmd="$(find_compatible_python || true)"
-
-if [ -z "$python_cmd" ] && command -v brew >/dev/null 2>&1; then
-    echo "No compatible Python found. Attempting to install the latest supported Python (3.14) with Homebrew..."
-    brew install python@3.14
-    python_cmd="$(find_compatible_python || true)"
+if ! command -v uv >/dev/null 2>&1; then
+    echo "uv not found. Installing uv..."
+    curl -LsSf https://astral.sh/uv/install.sh | sh
+    export PATH="$HOME/.local/bin:$PATH"
 fi
 
-if [ -z "$python_cmd" ]; then
-    echo "Could not find a compatible Python interpreter. Install Python 3.12, 3.13, or 3.14 (e.g. 'brew install python@3.14'), then re-run ./build.sh" >&2
+if ! command -v uv >/dev/null 2>&1; then
+    echo "Could not find or install uv. Install it manually: https://docs.astral.sh/uv/getting-started/installation/ then re-run ./build.sh" >&2
     exit 1
 fi
 
-echo "Using Python interpreter: $python_cmd"
+echo "Using uv: $(uv --version)"
+
+echo "Ensuring Python $python_version is available..."
+uv python install "$python_version"
 
 echo "[1/3] Creating virtual environment..."
 needs_new_venv=1
 if [ -x "$venv_python" ]; then
     venv_version=$("$venv_python" -c 'import sys; print(f"{sys.version_info[0]}.{sys.version_info[1]}")')
-    case "$venv_version" in
-        3.14|3.13|3.12)
-            needs_new_venv=0
-            ;;
-        *)
-            echo "Existing .venv uses Python $venv_version, recreating with Python 3.14/3.13/3.12..."
-            rm -rf "$venv_path"
-            ;;
-    esac
+    if [ "$venv_version" = "$python_version" ]; then
+        needs_new_venv=0
+    else
+        echo "Existing .venv uses Python $venv_version, recreating with Python $python_version..."
+    fi
 fi
 
 if [ "$needs_new_venv" -eq 1 ]; then
-    "$python_cmd" -m venv "$venv_path"
+    uv venv --clear --python "$python_version" "$venv_path"
 fi
 
 echo "[2/3] Installing packages..."
-"$venv_python" -m pip install --upgrade pip
-"$venv_python" -m pip install -r "$requirements_file"
+uv pip install --python "$venv_python" -r "$requirements_file"
 
 echo "[3/3] Validating dbt installation..."
 "$venv_dbt" --version

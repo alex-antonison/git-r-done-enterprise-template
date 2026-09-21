@@ -2,12 +2,12 @@ WITH
 
 all_releases AS (
     SELECT
-        cast(
-            date_part('year', strptime("Release Date", '%b %d %Y')) AS INTEGER
-        ) AS release_year,
         "MPAA Rating" AS mpaa_rating,
         "Major Genre" AS major_genres,
-        "Worldwide Gross" AS worldwide_gross
+        "Worldwide Gross" AS worldwide_gross,
+        CAST(
+            date_part('year', strptime("Release Date", '%b %d %Y')) AS INTEGER
+        ) AS release_year
     FROM {{ source('vega_datasets', 'movies') }}
 )
 

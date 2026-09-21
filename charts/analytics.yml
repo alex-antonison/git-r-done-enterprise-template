@@ -1,0 +1,104 @@
+title: Git-R-Done Enterprises Movie Analysis
+source: analytics
+notes: >
+  Worldwide box office revenue aggregated by release year, MPAA rating,
+  and genre — built from models/marts/sample_model_revenue.
+
+queries:
+  total_kpi:
+    sql: |
+      SELECT sum(total_worldwide_gross) AS total_revenue
+      FROM sample_model_revenue
+
+  revenue_by_year:
+    sql: |
+      SELECT release_year,
+             sum(total_worldwide_gross) AS revenue
+      FROM sample_model_revenue
+      WHERE release_year IS NOT NULL
+      GROUP BY release_year
+      ORDER BY release_year
+
+  revenue_by_decade:
+    sql: |
+      SELECT (release_year // 10) * 10 AS decade_start,
+             cast((release_year // 10) * 10 AS VARCHAR) || 's' AS decade,
+             sum(total_worldwide_gross) AS revenue
+      FROM sample_model_revenue
+      WHERE release_year IS NOT NULL
+      GROUP BY 1, 2
+      ORDER BY 1
+
+  revenue_by_rating:
+    sql: |
+      SELECT coalesce(mpaa_rating, 'Unrated') AS mpaa_rating,
+             sum(total_worldwide_gross) AS revenue
+      FROM sample_model_revenue
+      GROUP BY 1
+      ORDER BY revenue DESC
+
+  revenue_by_genre:
+    sql: |
+      SELECT coalesce(major_genres, 'Unspecified') AS major_genres,
+             sum(total_worldwide_gross) AS revenue
+      FROM sample_model_revenue
+      GROUP BY 1
+      ORDER BY revenue DESC
+      LIMIT 10
+
+charts:
+  total_revenue_kpi:
+    type: kpi
+    query: total_kpi
+    label: Total worldwide gross
+    value: total_revenue
+    style:
+      value:
+        format: currency_whole
+
+  revenue_trend:
+    type: line
+    query: revenue_by_decade
+    title: Revenue by decade
+    x: decade
+    y: revenue
+    style:
+      number_format: currency
+      axis_x:
+        labels:
+          angle: -45
+
+  revenue_by_rating_chart:
+    type: bar
+    query: revenue_by_rating
+    title: Revenue by MPAA rating
+    x: mpaa_rating
+    y: revenue
+    style:
+      number_format: currency
+
+  revenue_by_genre_chart:
+    type: bar
+    query: revenue_by_genre
+    title: Revenue by genre (top 10)
+    x: major_genres
+    y: revenue
+    style:
+      number_format: currency
+
+  revenue_by_year_table:
+    type: table
+    query: revenue_by_year
+    title: Revenue by year (detail)
+    style:
+      columns:
+        release_year:
+          format: year
+        revenue:
+          format: currency_whole
+
+rows:
+  - cols: [total_revenue_kpi]
+  - cols: [revenue_trend, revenue_by_rating_chart]
+  - revenue_by_genre_chart
+  - revenue_by_year_table

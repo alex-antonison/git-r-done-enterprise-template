@@ -209,3 +209,5 @@ __marimo__/
 logs/
 .user.yml
 dbt_internal_packages/
+renders/
+*.duckdb
