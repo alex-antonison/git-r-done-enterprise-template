@@ -3,12 +3,6 @@ models:
   - name: stg_movies
     description: Staging model for movie-level attributes and performance metrics, cleaned up and typed from the raw movie source.
     columns:
-      - name: movie_id
-        description: Surrogate identifier for a movie record, assigned by row order.
-        data_type: bigint
-      - name: title
-        description: Movie title. Extracted with json_extract_string to strip JSON quoting from titles that look numeric (e.g. "1984") and would otherwise infer as JSON instead of varchar in the raw source.
-        data_type: varchar
       - name: us_gross
         description: Total box office gross in the United States in USD.
         data_type: bigint
@@ -21,9 +15,6 @@ models:
       - name: production_budget
         description: Estimated production budget in USD.
         data_type: bigint
-      - name: release_date
-        description: Theatrical release date, parsed into a real date from the raw formatted string.
-        data_type: date
       - name: mpaa_rating
         description: MPAA age/content rating for the movie.
         data_type: varchar
@@ -54,3 +45,15 @@ models:
       - name: imdb_votes
         description: Number of IMDb user votes used to calculate the IMDb rating.
         data_type: bigint
+      - name: movie_id
+        description: Surrogate identifier for a movie record, assigned by row order.
+        data_type: bigint
+        data_tests:
+          - unique
+          - not_null
+      - name: title
+        description: Movie title. Extracted with json_extract_string to strip JSON quoting from titles that look numeric (e.g. "1984") and would otherwise infer as JSON instead of varchar in the raw source.
+        data_type: varchar
+      - name: release_date
+        description: Theatrical release date, parsed into a real date from the raw formatted string.
+        data_type: date

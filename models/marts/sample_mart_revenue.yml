@@ -1,7 +1,7 @@
 version: 2
 
 models:
-  - name: sample_model_revenue
+  - name: sample_mart_revenue
     description: Worldwide box office revenue aggregated by release year, MPAA rating, and genre.
     columns:
       - name: release_year
