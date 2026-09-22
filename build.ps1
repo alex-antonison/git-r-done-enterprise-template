@@ -8,7 +8,7 @@ $venvPath = Join-Path $repoRoot ".venv"
 $venvPython = Join-Path $venvPath "Scripts\python.exe"
 $dbtExe = Join-Path $venvPath "Scripts\dbt.exe"
 $requirementsFile = Join-Path $repoRoot "requirements.txt"
-$pythonVersion = "3.13"
+$pythonVersion = "3.14"
 
 if (-not (Test-Path $requirementsFile)) {
     throw "requirements.txt was not found at $requirementsFile"

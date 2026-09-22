@@ -2,13 +2,11 @@ with
 
 all_releases as (
     select
-        "MPAA Rating" as mpaa_rating,
-        "Major Genre" as major_genres,
-        "Worldwide Gross" as worldwide_gross,
-        cast(
-            date_part('year', strptime("Release Date", '%b %d %Y')) as integer
-        ) as release_year
-    from {{ source('vega_datasets', 'movies') }}
+        mpaa_rating,
+        major_genres,
+        worldwide_gross,
+        date_part('year', release_date) as release_year
+    from {{ ref('stg_movies') }}
 )
 
 select

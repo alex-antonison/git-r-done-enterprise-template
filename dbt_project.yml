@@ -23,6 +23,8 @@ models:
   git_r_done_enterprises:
     marts:
       +materialized: table
+    staging:
+      +materialized: table
 
 vars:
   imdb_movies:

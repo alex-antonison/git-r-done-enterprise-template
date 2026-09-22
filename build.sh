@@ -8,7 +8,7 @@ venv_path="$repo_root/.venv"
 venv_python="$venv_path/bin/python"
 venv_dbt="$venv_path/bin/dbt"
 requirements_file="$repo_root/requirements.txt"
-python_version="3.13"
+python_version="3.14"
 
 if [ ! -f "$requirements_file" ]; then
     echo "requirements.txt was not found at $requirements_file" >&2
