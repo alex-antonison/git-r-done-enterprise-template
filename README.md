@@ -15,7 +15,12 @@ This project builds movie analytics data with dbt, then visualizes it with [dbt 
 
 ## Looking at data
 
-- **`dbt show`** — preview a model's output straight from the CLI, no other tool needed: `dbt show --select stg_movies --limit 10` (swap the model name for any other one, e.g. `sample_model_revenue`).
+- **`dbt show`** — preview a model's output straight from the CLI, no other tool needed (swap the model name for any other one, e.g. `sample_model_revenue`):
+
+   ```shell
+   dbt show --select stg_movies --limit 10
+   ```
+
 - **DBeaver** (or another database client) — connect to `database/git_r_done_enterprises.duckdb`. Disconnect before running `dbt run` again — DuckDB only allows one writer at a time.
 
 ## Data model
