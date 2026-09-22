@@ -1,0 +1,60 @@
+version: 2
+
+sources:
+  - name: vega_datasets
+    description: Public movie dataset published by the Vega visualization project.
+    tables:
+      - name: movies
+        description: Raw movie records including box office performance, ratings, and metadata.
+        config:
+          external_location: "read_json_auto('https://raw.githubusercontent.com/vega/vega-datasets/next/data/movies.json')"
+          formatter: oldstyle
+        columns:
+          - name: Title
+            description: Movie title. A handful of records have a numeric-looking title (e.g. "1984"), which read_json_auto infers as JSON rather than VARCHAR.
+            data_type: json
+          - name: US Gross
+            description: Total box office gross in the United States in USD.
+            data_type: bigint
+          - name: Worldwide Gross
+            description: Total worldwide box office gross in USD.
+            data_type: bigint
+          - name: US DVD Sales
+            description: Total US DVD sales revenue in USD.
+            data_type: bigint
+          - name: Production Budget
+            description: Estimated production budget in USD.
+            data_type: bigint
+          - name: Release Date
+            description: Theatrical release date, as a formatted string (e.g. "Jun 12 1998").
+            data_type: varchar
+          - name: MPAA Rating
+            description: MPAA age/content rating for the movie.
+            data_type: varchar
+          - name: Running Time min
+            description: Runtime of the movie in minutes.
+            data_type: bigint
+          - name: Distributor
+            description: Company responsible for distribution.
+            data_type: varchar
+          - name: Source
+            description: Original data source for the movie record.
+            data_type: varchar
+          - name: Major Genre
+            description: Primary genre classification for the movie.
+            data_type: varchar
+          - name: Creative Type
+            description: Creative format/category of the movie content.
+            data_type: varchar
+          - name: Director
+            description: Director credited for the movie.
+            data_type: varchar
+          - name: Rotten Tomatoes Rating
+            description: Rotten Tomatoes critic score for the movie.
+            data_type: bigint
+          - name: IMDB Rating
+            description: IMDb user rating for the movie.
+            data_type: double
+          - name: IMDB Votes
+            description: Number of IMDb user votes used to calculate the IMDb rating.
+            data_type: bigint

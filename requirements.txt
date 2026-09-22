@@ -1,6 +1,1 @@
-dbt-duckdb
-duckdb
-pandas
-plotly
-streamlit
-watchdog
+dbt

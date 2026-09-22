@@ -3,9 +3,5 @@ git_r_done_enterprises:
   outputs:
     dev:
       type: duckdb
-      path: database/dev/git_r_done_enterprises.duckdb
-      threads: 4
-    prod:
-      type: duckdb
-      path: database/prod/git_r_done_enterprises.duckdb
+      path: database/git_r_done_enterprises.duckdb
       threads: 4

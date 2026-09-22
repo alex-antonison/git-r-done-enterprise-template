@@ -1,21 +1,21 @@
-WITH
+with
 
-all_releases AS (
-    SELECT
-        release_year,
+all_releases as (
+    select
         mpaa_rating,
         major_genres,
-        worldwide_gross
-    FROM {{ ref('stg_movies') }}
+        worldwide_gross,
+        date_part('year', release_date) as release_year
+    from {{ ref('stg_movies') }}
 )
 
-SELECT
+select
     release_year,
     mpaa_rating,
     major_genres,
-    sum(worldwide_gross) AS total_worldwide_gross
-FROM all_releases
-GROUP BY
+    sum(worldwide_gross) as total_worldwide_gross
+from all_releases
+group by
     release_year,
     mpaa_rating,
     major_genres
