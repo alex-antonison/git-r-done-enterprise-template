@@ -15,7 +15,7 @@ This project builds movie analytics data with dbt, then visualizes it with [dbt 
 
 ## Looking at data
 
-- **`dbt show`** — preview a model's output straight from the CLI, no other tool needed (swap the model name for any other one, e.g. `sample_model_revenue`):
+- **`dbt show`** — preview a model's output straight from the CLI, no other tool needed (swap the model name for any other one, e.g. `sample_mart_revenue`):
 
    ```shell
    dbt show --select stg_movies --limit 10
@@ -27,14 +27,14 @@ This project builds movie analytics data with dbt, then visualizes it with [dbt 
 
 - **Source** ([models/sources.yml](models/sources.yml)) — the raw movie dataset, pulled directly from the [Vega datasets](https://github.com/vega/vega-datasets) project's `movies.json`. Columns are exactly as published: spaced names like `"MPAA Rating"` and `"US Gross"`, and a couple of type quirks (a handful of numeric-looking titles like `"1984"` infer as JSON instead of plain text).
 - **Staging** ([models/staging/stg_movies.sql](models/staging/stg_movies.sql)) — cleans the source up into a model you can actually build on: renames every column to snake_case, casts `Release Date` into a real `date` instead of a formatted string, and fixes the `Title` JSON quirk so it's always plain text.
-- **Marts** ([models/marts/](models/marts/)) — business-facing models built from staging, not the raw source. [sample_model_revenue.sql](models/marts/sample_model_revenue.sql) is the example to copy.
+- **Marts** ([models/marts/](models/marts/)) — business-facing models built from staging, not the raw source. [sample_mart_revenue.sql](models/marts/sample_mart_revenue.sql) is the example to copy.
 
 ## Exercise
 
 1. Come up with an idea for doing some analytics with movie data - you can see the cleaned-up schema here: [models\staging\stg_movies.yml](models/staging/stg_movies.yml).
 2. Write a GitHub issue describing the idea and what you would like to do with it.
 3. Create a descriptive branch name (e.g., `analytics-movie-revenue`).
-4. Add a dbt model under [models/marts/](models/marts/) similar to [models/marts/sample_model_revenue.sql](models/marts/sample_model_revenue.sql) that implements what you described in your GitHub Issue — reference `{{ ref('stg_movies') }}`, not the raw source.
+4. Add a dbt model under [models/marts/](models/marts/) similar to [models/marts/sample_mart_revenue.sql](models/marts/sample_mart_revenue.sql) that implements what you described in your GitHub Issue — reference `{{ ref('stg_movies') }}`, not the raw source.
 5. Run `dbt run` and make sure everything is working.
 6. Commit your changes and push them to GitHub.
 7. Open a pull request against the main branch of this repository.
