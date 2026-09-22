@@ -24,11 +24,10 @@ Use a database client such as DBeaver to connect to the DuckDB database file loc
 3. Create a descriptive branch name (e.g., `analytics-movie-revenue`).
 4. Add a dbt model under [models/marts/](models/marts/) similar to [models/marts/sample_model_revenue.sql](models/marts/sample_model_revenue.sql) that implements what you described in your GitHub Issue.
 5. Run `dbt run` and make sure everything is working.
-6. Add a chart for your new model to [charts/analytics.yml](charts/analytics.yml) (or a new file under `charts/`) and preview it with `dct serve`.
-7. Commit your changes and push them to GitHub.
-8. Open a pull request against the main branch of this repository.
-9. Once done, review your PR with someone else and get feedback.
+6. Commit your changes and push them to GitHub.
+7. Open a pull request against the main branch of this repository.
+8. Once done, review your PR with someone else and get feedback.
 
 ## Extra
 
-If you are interested, tinker with [charts/analytics.yml](charts/analytics.yml) — add new chart types, filters, or KPIs. Run `dct docs charts` for the full chart reference.
+If you are interested, tinker with [charts/analytics.yml](charts/analytics.yml) — add a chart for your new model (or new chart types, filters, KPIs) and preview it with `dct serve`. Run `dct docs charts` for the full chart reference.
