@@ -39,3 +39,6 @@ jobs:
 
       - name: Run dbt check
         run: .venv/bin/dbt check
+
+      - name: Run dbt build
+        run: .venv/bin/dbt build
